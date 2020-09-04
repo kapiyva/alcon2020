@@ -2,7 +2,17 @@ import os
 import pathlib
 from PIL import Image
 import numpy as np
-from mayavi import mlab
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
+
+
+def show_model(box):
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.voxels(box)
+    plt.show()
+
 
 dataType = input("'part'か'problem'を入力\n")
 if dataType == "part":
@@ -27,13 +37,11 @@ for i, file in enumerate(os.listdir()):
 
     if i == 0:
         tmp = np.array(Image.open(file).convert('L'))
-        box = np.where(tmp < threshold, 0, 1)
-        np.set_printoptions(threshold=np.inf)
+        box = np.where(tmp < threshold, False, True)
     else:
         tmp = np.array(Image.open(file).convert('L'))
-        img = np.where(tmp < threshold, 0, 1)
+        img = np.where(tmp < threshold, False, True)
         box = np.dstack([box, img])
+        break
 
-src = mlab.pipeline.scalar_field(box)
-outer = mlab.pipeline.iso_surface(src)
-mlab.show()
+show_model(box)
