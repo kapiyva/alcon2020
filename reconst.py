@@ -2,16 +2,14 @@ import os
 import pathlib
 from PIL import Image
 import numpy as np
-import matplotlib
-matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
+from mayavi import mlab
+from mayavi import tools
 
 
 def show_model(box):
-    fig = plt.figure()
-    ax = fig.gca(projection='3d')
-    ax.voxels(box)
-    plt.show()
+    src = mlab.pipeline.scalar_field(box)
+    outer = mlab.pipeline.iso_surface(src)
+    mlab.show()
 
 
 dataType = input("'part'か'problem'を入力\n")
@@ -30,18 +28,20 @@ else:
 box = np.empty(0)
 threshold = 100
 # box[x][y][z]  zは何枚目の画像かを表す
-for i, file in enumerate(os.listdir()):
+files = [f for f in os.listdir()]
+files.sort()
+for file in files:
     _, ext = os.path.splitext(file)
     if ext != ".bmp":
         continue
 
-    if i == 0:
+    if box.size == 0:
         tmp = np.array(Image.open(file).convert('L'))
-        box = np.where(tmp < threshold, False, True)
+        box = np.where(tmp < threshold, 0, 1)
     else:
         tmp = np.array(Image.open(file).convert('L'))
-        img = np.where(tmp < threshold, False, True)
+        img = np.where(tmp < threshold, 0, 1)
         box = np.dstack([box, img])
-        break
 
+print(box.shape)
 show_model(box)
