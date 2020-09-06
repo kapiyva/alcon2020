@@ -2,13 +2,12 @@ import os
 import pathlib
 from PIL import Image
 import numpy as np
-from mayavi import mlab
-from mayavi import tools
+from mayavi import mlab, tools
 
 
 def show_model(box):
     src = mlab.pipeline.scalar_field(box)
-    outer = mlab.pipeline.iso_surface(src)
+    mlab.pipeline.iso_surface(src)
     mlab.show()
 
 
@@ -24,7 +23,6 @@ elif dataType == "problem":
 else:
     print("入力が不正です")
     os.close(0)
-print("\n")
 
 box = np.empty(0)
 threshold = 100
