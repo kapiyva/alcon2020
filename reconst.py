@@ -17,15 +17,15 @@ if dataType == "part":
     dataName = "Part{0}".format(dataNum)
     os.chdir("dataset/Parts/" + dataName)
 elif dataType == "problem":
-    dataNum = input("01~05を入力\n")
-    dataName = "dataset/Problem{0}".format(dataNum)
+    dataNum = input("1~5を入力\n")
+    dataName = "dataset/Problem0{0}".format(dataNum)
     os.chdir(dataName)
 else:
     print("入力が不正です")
     os.close(0)
 
 box = np.empty(0)
-threshold = 100
+threshold = 70
 # box[x][y][z]  zは何枚目の画像かを表す
 files = [f for f in os.listdir()]
 files.sort()
