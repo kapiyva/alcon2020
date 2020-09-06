@@ -1,3 +1,4 @@
+![Python](https://img.shields.io/badge/python-v3.X-blue)
 # Setup
 ```
 pip install numpy mayavi PyQt5
