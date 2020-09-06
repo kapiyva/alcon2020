@@ -24,12 +24,14 @@ elif dataType == "problem":
 else:
     print("入力が不正です")
     os.close(0)
+print("\n")
 
 box = np.empty(0)
 threshold = 100
 # box[x][y][z]  zは何枚目の画像かを表す
 files = [f for f in os.listdir()]
 files.sort()
+loaded = 10
 for file in files:
     _, ext = os.path.splitext(file)
     if ext != ".bmp":
@@ -42,6 +44,11 @@ for file in files:
         tmp = np.array(Image.open(file).convert('L'))
         img = np.where(tmp < threshold, 0, 1)
         box = np.dstack([box, img])
+
+        if (box.shape[2] / len(files)) > (loaded/100):
+            print("{0}% loaded".format(loaded))
+            loaded += 10
+
 
 print(box.shape)
 show_model(box)
