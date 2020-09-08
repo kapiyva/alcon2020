@@ -16,8 +16,8 @@ class Histogram(object):
         self.pixNum = 0
     
     def add_image(self, img):
-        for i in len(img):
-            for j in len(img[i]):
+        for i in range(len(img)):
+            for j in range(len(img[i])):
                 self.graph[img[i][j]] += 1
                 self.pixNum += 1
     
@@ -59,20 +59,22 @@ for file in files:
     if ext != ".bmp":
         continue
 
-    if box.size == 0:
+    if box_raw.size == 0:
         box_raw = np.array(Image.open(file).convert('L'))
         histogram.add_image(box_raw)
 
     else:
         img = np.array(Image.open(file).convert('L'))
         histogram.add_image(img)
-        box_raw = np.dstack([box, img])
+        box_raw = np.dstack([box_raw, img])
 
-        if (box.shape[2] / len(files)) > (loaded/100):
+        if (box_raw.shape[2] / len(files)) > (loaded/100):
             print("{0}% loaded".format(loaded))
             loaded += 10
 
 
-box = np.where(box < histogram.get_threshold(), 0, 1)
+box = np.where(box_raw < histogram.get_threshold(), 0, 1)
+#print(histogram.graph)
+#print(histogram.graph.shape)
 print(box.shape)
 show_model(box)
