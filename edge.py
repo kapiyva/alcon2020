@@ -24,7 +24,7 @@ def main():
 
         img_bgr = cv2.imread(file)
         img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
-        _, img_edge = cv2.Canny(img_gray, 0, 12)
+        img_edge = cv2.Canny(img_gray, 0, 12)
         cv2.imwrite("{0}.tif".format(fName), img_edge)
 
 def test():
