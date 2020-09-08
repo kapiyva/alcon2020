@@ -10,30 +10,6 @@ def show_model(box):
     mlab.pipeline.iso_surface(src)
     mlab.show()
 
-class Histogram(object):
-    def __init__(self):
-        self.graph = np.zeros(256)
-        self.pixNum = 0
-    
-    def add_image(self, img):
-        for i in range(len(img)):
-            for j in range(len(img[i])):
-                self.graph[img[i][j]] += 1
-                self.pixNum += 1
-    
-    def get_threshold(self):
-        maxS = 0
-        for devider in range(1, 256):
-            class1 = self.graph[:devider]
-            class2 = self.graph[devider:]
-            sigW = class1.sum() * np.var(class1) + class2.sum() * np.var(class2)
-            sigB = class1.sum() * (np.mean(class1) - np.mean(self.graph)) + class2.sum() * (np.mean(class2) - np.mean(self.graph))
-            S = sigB/sigW
-            if S > maxS:
-                maxS = S
-                threshold = devider
-        return threshold
-
 dataType = input("'part'か'problem'を入力\n")
 if dataType == "part":
     dataNum = input("01~31を入力\n")
@@ -53,7 +29,6 @@ threshold = 70
 files = [f for f in os.listdir()]
 files.sort()
 loaded = 10
-histogram = Histogram()
 for file in files:
     _, ext = os.path.splitext(file)
     if ext != ".bmp":
@@ -61,20 +36,17 @@ for file in files:
 
     if box_raw.size == 0:
         box_raw = np.array(Image.open(file).convert('L'))
-        histogram.add_image(box_raw)
 
     else:
         img = np.array(Image.open(file).convert('L'))
-        histogram.add_image(img)
         box_raw = np.dstack([box_raw, img])
 
         if (box_raw.shape[2] / len(files)) > (loaded/100):
             print("{0}% loaded".format(loaded))
             loaded += 10
+            break
 
 
-box = np.where(box_raw < histogram.get_threshold(), 0, 1)
-#print(histogram.graph)
-#print(histogram.graph.shape)
+box = np.where(box_raw < threshold, 0, 1)
 print(box.shape)
 show_model(box)
