@@ -25,7 +25,8 @@ def main():
         img_bgr = cv2.imread(file)
         img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
         img_edge = cv2.Canny(img_gray, 0, 12)
-        cv2.imwrite("{0}.tif".format(fName), img_edge)
+        new_image = cv2.addWeighted(img_gray, 1, img_edge, -1, 0)
+        cv2.imwrite("{0}.tif".format(fName), new_image)
 
 def test():
     file = "dataset/Problem01/Problem01_0150"
