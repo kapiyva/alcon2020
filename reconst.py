@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import os
 import pathlib
 import cv2
@@ -74,3 +75,6 @@ ax.view_init(elev=-160, azim=30)
 plt.tight_layout()
 #plt.savefig('mc_cactus3.jpg',dpi=100)
 plt.show()
+=======
+print(Hello python World!)
+>>>>>>> b349c02bc51d4f02d70b0fff9395671a15950c42
