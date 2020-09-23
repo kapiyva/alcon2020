@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/Users/nakamura/.pyenv/versions/3.6.7/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
+}
