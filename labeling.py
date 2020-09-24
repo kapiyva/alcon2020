@@ -1,0 +1,2 @@
+def labeling(voxel):
+    return

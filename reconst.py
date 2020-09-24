@@ -1,1 +1,3 @@
-print(Hello python!)
+
+def reconst(target):
+    return
