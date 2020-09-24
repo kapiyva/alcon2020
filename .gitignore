@@ -1,2 +1,5 @@
 dataset/
 .DS_Store
+.idea/
+.vscode/
+.python-version
