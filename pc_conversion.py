@@ -18,7 +18,7 @@ def pc_conversion(voxel):
         
         pcd.points = o3d.utility.Vector3dVector(xyz)
         pcdList.append(pcd)
-        o3d.visualization.draw_geometries([pcd])
+        # o3d.visualization.draw_geometries([pcd])
     return pcdList
 
 

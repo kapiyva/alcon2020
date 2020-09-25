@@ -27,7 +27,7 @@ def reconst(target, threshold=68):
     box = np.where(box_np < threshold, 0, 1)
     print("voxel shape: {0}".format(box_np.shape))
     os.chdir(defaultPath)
-    print(os.getcwd())
+    # print(os.getcwd())
     return box_np, box
 
 if __name__ == "__main__":
