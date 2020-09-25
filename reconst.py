@@ -13,7 +13,7 @@ def reconst(target, threshold=68):
     loaded = 10
     for file in files:
         _, ext = os.path.splitext(file)
-        if ext != ".bmp":
+        if ext != ".tif":
             continue
 
         box_raw.append(cv2.imread(file, cv2.IMREAD_GRAYSCALE))
