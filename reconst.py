@@ -13,7 +13,7 @@ def reconst(target, threshold=68):
     loaded = 10
     for file in files:
         _, ext = os.path.splitext(file)
-        if ext != ".bmp":
+        if ext != ".tif":
             continue
 
         box_raw.append(cv2.imread(file, cv2.IMREAD_GRAYSCALE))
@@ -27,7 +27,7 @@ def reconst(target, threshold=68):
     box = np.where(box_np < threshold, 0, 1)
     print("voxel shape: {0}".format(box_np.shape))
     os.chdir(defaultPath)
-    print(os.getcwd())
+    # print(os.getcwd())
     return box_np, box
 
 if __name__ == "__main__":
