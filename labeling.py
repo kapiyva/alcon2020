@@ -9,7 +9,7 @@ def labeling(voxel, connect=6):
     labeled_voxel = cc3d.connected_components(voxel, connectivity=connectivity)
 
     label_count = [0] * np.amax(labeled_voxel)
-    thresh_size = 90 //
+    thresh_size = 90 // (0.064 ** 3)
     # 体積が一定以下のものを除去
     for i in range(d):
         for j in range(h):
@@ -17,7 +17,8 @@ def labeling(voxel, connect=6):
                 label_count[voxel[i][j][k]] += 1
 
     for i in range(np.amax(labeled_voxel)):
-        if label_count[i]
+        if label_count[i] < thresh_size:
+            labeled_voxel[labeled_voxel == i] = 0
 
     return labeled_voxel
 
