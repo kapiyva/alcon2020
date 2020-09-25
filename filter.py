@@ -33,4 +33,4 @@ def filtering(target):
 
 
 if __name__ == "__main__":
-    filtering('dataset/Problem1')
+    filtering('dataset/Problem01')
