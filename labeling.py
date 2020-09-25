@@ -2,7 +2,7 @@ import cc3d
 import numpy as np
 
 
-def labeling(voxel, connect):
+def labeling(voxel, connect=6):
 
     connectivity = connect
     labeled_voxel = cc3d.connected_components(voxel, connectivity=connectivity)
