@@ -18,7 +18,6 @@ def filtering(target):
         _, img_fil = cv.threshold(img_gray, 63, 0, cv.THRESH_TOZERO)
         # img_fil = cv.adaptiveThreshold(img_fil, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 11, 0)
         img_edge = cv.Canny(img_gray, 3, 15)
-        img_fil = cv.subtract(img_fil, img_edge)
         # kernel = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]], np.float32)
         kernel = np.ones((7, 7), np.uint8)
         img_fil = cv.medianBlur(img_fil, kernel)
@@ -30,7 +29,9 @@ def filtering(target):
         img_fil = cv.dilate(img_fil, kernel, iterations=itr - 1)
         # オープニング
         img_fil = cv.morphologyEx(img_fil, cv.MORPH_OPEN, kernel)
-        # クロージング
+        # エッジの切り取り
+        img_fil = cv.subtract(img_fil, img_edge)
+
         cv.imwrite("{0}.tif".format(file_name), img_fil)
         # cv.imwrite("{0}_edge.tif".format(fName), img_edge)
     os.chdir(defaultPath)
