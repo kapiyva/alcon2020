@@ -20,6 +20,8 @@ def filtering(target):
         img_edge = cv.Canny(img_gray, 3, 15)
         img_fil = cv.subtract(img_fil, img_edge)
         # kernel = np.array([[-1,-1,-1], [-1,9,-1], [-1,-1,-1]], np.float32)
+        kernel = np.ones((7, 7), np.uint8)
+        img_fil = cv.medianBlur(img_fil, kernel)
         kernel = np.ones((5, 5), np.uint8)
         itr = 2
         # 縮小
