@@ -2,7 +2,9 @@ import os
 import cv2
 import numpy as np
 
+
 def reconst(target, threshold=68):
+    defaultPath = os.getcwd()
     os.chdir(target)
     box_raw = []
     # box[x][y][z]  zは何枚目の画像かを表す
@@ -24,6 +26,8 @@ def reconst(target, threshold=68):
     # np.set_printoptions(threshold=np.inf)
     box = np.where(box_np < threshold, 0, 1)
     print("voxel shape: {0}".format(box_np.shape))
+    os.chdir(defaultPath)
+    print(os.getcwd())
     return box_np, box
 
 if __name__ == "__main__":
