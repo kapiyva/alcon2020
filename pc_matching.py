@@ -18,6 +18,7 @@ import copy
 
 
 def pc_matching(target):
+    defalutPath = os.getcwd()
     scene = target
     ans = 0
     # 入力データ
@@ -74,10 +75,11 @@ def pc_matching(target):
         # show(model_d, scene_d, result1.transformation)
 
         # ICPで微修正
-        result2 = o3d.registration.registration_icp(model, scene, size, result1.transformation, est_ptpln)
-        if result2.inlier_rmse < min_err:
-            min_err = result2.inlier_rmse
+        # result2 = o3d.registration.registration_icp(model, scene, size, result1.transformation, est_ptpln)
+        if result1.inlier_rmse < min_err and result1.inlier_rmse > 0:
+            min_err = result1.inlier_rmse
             ans = int(index_str)
+        os.chdir(defalutPath)
     return ans
 
 
