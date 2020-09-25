@@ -1,10 +1,14 @@
-from . import *
-import numpy as np
+from filter import filtering
+from reconst import reconst
+from labeling import labeling
+from pc_conversion import pc_conversion
+from pc_matching import pc_matching
+
 
 def main():
     target = 'dataset/Problem01'
     # 前処理
-    filter(target)
+    filtering(target)
     # 三次元復元してnp.arrayに変換
     voxel = reconst(target)
     # 塊ごとにラベルを振っていく
@@ -16,4 +20,4 @@ def main():
         p_ans = pc_matching(part)
         count[p_ans] += 1
 
-print(count)
+    print(count)
